@@ -1,30 +1,69 @@
 # welcome to flip coin simulator
 read -p "Enter the no of times to flip coin: " a
+headdouble=0;
+taildouble=0;
+headtail=0;
+tailhead=0;
+function flipcoin(){
 declare -A dictionary
-tail=0;
+tail=1;
 head=0;
-for(( count=0;count<a;count++ ))
-do 
+for(( count=0;count<$1;count++ ))
+do
    	random=$(( RANDOM%2 ))
-	if [ $random -eq 0 ]
-	then 
-	echo "Heads"
-        head=$(( $head+1 ))
+         random1=$(( RANDOM%2 ))
+
+	if [ $random -eq $random1 ]
+	then
+        if [ $random -eq $head ]
+        then 
+        	 echo "HeadsHeads"
+        	 headdouble=$(( $headdouble+1 ))
 	else
-	echo "Tails"
-        tail=$(( $tail+1 ))
+		echo "TailsTails"
+        	taildouble=$(( $taildouble+1 ))
         
+
+ 	fi
+	else
+        	if [ $random -eq $head ]
+                then
+		headtail=$(( $headtail+1 ))
+                else
+                tailhead=$(( $tailhead+1 ))
+	fi
 	fi
 done
-dictionary[head]=$head
-dictionary[tail]=$tail
 
+
+echo $headtail
  echo ${dictionary[@]}
 
-result=$(( $head*100 ))
-headsresult=$(( $result/$a))
-result=$(( $tail*100 ))
-tailsresult1=$(( $result/$a))
+result=$(( $headtail*100 ))
+headtailresult=$(( $result/$a))
+result=$(( $tailhead*100 ))
+tailheadresult=$(( $result/$a))
+result=$(( $headdouble*100 ))
+headdoubleresult=$(( $result/$a))
 
-echo ${dictionary1[@]}
+result=$(( $taildouble*100 ))
+taildoubleresult=$(( $result/$a))
+
+
+}
+
+ flipcoin $a 
+
+ #echo ${dictionary[@]}
+
+#result=$(( $headtail*100 ))
+#headtailresult=$(( $result/$a))
+#result=$(( $tailhead*100 ))
+#tailheadresult=$(( $result/$a))
+#result=$(( $headdouble*100 ))
+#headdoubleresult=$(( $result/$a))
+
+#result=$(( $taildouble*100 ))
+#taildoubleresult=$(( $result/$a))
+
 
